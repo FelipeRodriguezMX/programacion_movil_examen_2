@@ -14,7 +14,7 @@ class AuthUserDataSourceImplementation implements IAuthUserDataSource {
   Future<User> getUserData() async {
     final response = await client.get(file: 'user.json');
     if (response.status == true) {
-      return UserModel.fromJson(response.payload);
+      return UserModel.fromJson(response.payload as Map<String, dynamic>);
     }
     throw ServerException(
       statusCode: 1,

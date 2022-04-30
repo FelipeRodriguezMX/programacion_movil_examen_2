@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tarjetas/app/features/home/home.dart';
+import 'package:tarjetas/app/features/initial/intial.dart';
+import 'package:tarjetas/app/features/transactions/transactions.dart';
 
 class RouteGenerator {
   static Route<dynamic>? generateRoute(RouteSettings settings) {
@@ -12,6 +14,11 @@ class RouteGenerator {
       case '/home':
         return MaterialPageRoute<dynamic>(
             builder: (context) => const HomePage());
+      case '/transactions':
+        return MaterialPageRoute<dynamic>(
+            builder: (context) => TransactionPage(
+                  cardNumber: args! as String,
+                ));
 
       default:
         return _errorRoute();

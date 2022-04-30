@@ -5,7 +5,7 @@ class ApiResponseModel {
   });
 
   bool status;
-  Map<String, dynamic> payload;
+  dynamic payload;
 
   factory ApiResponseModel.fromJson(Map<String, dynamic> json) =>
       ApiResponseModel(

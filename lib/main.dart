@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tarjetas/app/core/core_presentation/global_states/user_provider.dart';
 import 'package:tarjetas/app/core/routes/routes.dart';
+import 'package:tarjetas/app/features/transactions/presentation/provider/transaction_provider.dart';
 import 'package:tarjetas/injection_containers.dart';
 
 void main() {
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => TransactionProvider()),
       ],
       child: MaterialApp(
         title: 'Tarjetas',

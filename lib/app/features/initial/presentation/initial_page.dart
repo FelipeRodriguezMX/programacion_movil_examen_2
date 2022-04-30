@@ -16,8 +16,8 @@ class InitialPage extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 20),
           color: Colors.blue,
           child: TextButton(
-            onPressed: () =>
-                Provider.of<UserProvider>(context, listen: false).login(),
+            onPressed: () => Provider.of<UserProvider>(context, listen: false)
+                .login(context),
             child: const Text(
               'Ingresar',
               style: TextStyle(

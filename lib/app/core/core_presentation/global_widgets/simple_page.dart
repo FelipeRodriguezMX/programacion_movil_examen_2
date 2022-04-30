@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of './global_widgets.dart';
 
 class SimplePage extends StatelessWidget {
   const SimplePage({
@@ -13,10 +13,13 @@ class SimplePage extends StatelessWidget {
     return Scaffold(
       appBar: appBar,
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(child: child),
-          ],
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          child: Column(
+            children: [
+              Expanded(child: child),
+            ],
+          ),
         ),
       ),
     );

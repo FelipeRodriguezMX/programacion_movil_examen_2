@@ -1,3 +1,4 @@
+import 'package:tarjetas/app/core/core_data/models/card_model.dart';
 import 'package:tarjetas/app/core/core_domain/entities/user.dart';
 
 class UserModel extends User {
@@ -6,11 +7,13 @@ class UserModel extends User {
     required String firstLastName,
     required String secondLastName,
     required String phone,
+    required List<CardModel> cards,
   }) : super(
           name: name,
           firstLastName: firstLastName,
           secondLastName: secondLastName,
           phone: phone,
+          cards: cards,
         );
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -18,5 +21,7 @@ class UserModel extends User {
         firstLastName: json['firstLastName'],
         secondLastName: json['secondLastName'],
         phone: json['phone'],
+        cards: List<CardModel>.from(
+            json["cards"].map((x) => CardModel.fromJson(x))),
       );
 }

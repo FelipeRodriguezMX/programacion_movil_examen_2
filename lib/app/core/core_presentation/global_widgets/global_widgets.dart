@@ -1,1 +1,4 @@
-export './simple_page.dart';
+import 'package:flutter/material.dart';
+
+part './choice_chip.dart';
+part './simple_page.dart';

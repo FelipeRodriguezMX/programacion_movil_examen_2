@@ -16,7 +16,6 @@ class AuthUserRepositoryImplementation extends IAuthUserRepository {
   Future<Either<Failure, User>> getUser() async {
     try {
       final response = await dataSource.getUserData();
-
       return Right(response);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.statusCode));

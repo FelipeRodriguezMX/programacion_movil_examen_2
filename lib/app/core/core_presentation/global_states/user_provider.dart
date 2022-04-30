@@ -20,13 +20,14 @@ class UserProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void login() async {
+  void login(BuildContext context) async {
     final AuthUserUseCase _authUseCase = GetIt.instance();
     final either = await _authUseCase.call();
     either.fold((left) {
       inspect(left);
     }, (right) {
-      inspect(right);
+      init(right);
+      Navigator.of(context).pushNamed('/home');
     });
   }
 }
