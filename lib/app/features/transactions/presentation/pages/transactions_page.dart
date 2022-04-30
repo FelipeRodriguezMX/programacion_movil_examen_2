@@ -22,7 +22,29 @@ class _TransactionPageState extends State<TransactionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SimplePage(child: body());
+    return SimplePage(
+      appBar: AppBar(
+        title: const Text('Regresar'),
+      ),
+      bottomAppBar: BottomAppBar(
+        elevation: 0,
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          height: 70,
+          child: CustomElevatedButton(
+            title: 'Realizar transacción',
+            onPressed: () => _transactionModal(),
+            borderRadius: 10,
+          ),
+        ),
+      ),
+      child: Column(
+        children: [
+          RowChips(cardNumber: widget.cardNumber),
+          body(),
+        ],
+      ),
+    );
   }
 
   Widget body() {
@@ -31,27 +53,26 @@ class _TransactionPageState extends State<TransactionPage> {
       return const Center(child: CircularProgressIndicator());
     }
     if (transaction.data!.isEmpty) {
-      return const Center(child: Text('No hay transacciones'));
+      return const Expanded(child: Center(child: Text('No hay transacciones')));
     }
-    return TransactionContent(
-      cardNumber: widget.cardNumber,
-    );
+    return TransactionListContent(transactions: transaction.data!);
   }
-}
 
-class TransactionContent extends StatelessWidget {
-  const TransactionContent({Key? key, required this.cardNumber})
-      : super(key: key);
-  final String cardNumber;
-  @override
-  Widget build(BuildContext context) {
-    final transactionProvider =
-        Provider.of<TransactionProvider>(context, listen: false);
-    return Column(
-      children: [
-        RowChips(cardNumber: cardNumber),
-        TransactionListContent(transactions: transactionProvider.data!),
-      ],
+  Future<void> _transactionModal() async {
+    return showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(25),
+        ),
+      ),
+      builder: (context) {
+        return FractionallySizedBox(
+          heightFactor: 0.70,
+          child: TransactionModal(cardNumber: widget.cardNumber),
+        );
+      },
     );
   }
 }

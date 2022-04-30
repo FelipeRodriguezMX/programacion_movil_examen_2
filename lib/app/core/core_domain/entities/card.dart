@@ -1,5 +1,5 @@
-class CardEntitie {
-  CardEntitie({
+class CardEntity {
+  CardEntity({
     required this.accountNumber,
     required this.total,
     required this.cvi,

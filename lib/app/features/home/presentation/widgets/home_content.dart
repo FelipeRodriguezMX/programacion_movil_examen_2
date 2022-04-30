@@ -24,7 +24,7 @@ class HomePageContent extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                '${user.user.name} ${user.user.firstLastName}',
+                '${user.user!.name} ${user.user!.firstLastName}',
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                     fontSize: 25,
@@ -34,7 +34,7 @@ class HomePageContent extends StatelessWidget {
             ],
           ),
         ),
-        CardListContent(cards: user.user.cards),
+        CardListContent(cards: user.user!.cards),
       ],
     );
   }

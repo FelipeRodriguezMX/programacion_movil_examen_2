@@ -38,4 +38,17 @@ class TransactionProvider with ChangeNotifier {
     );
     notifyListeners();
   }
+
+  void addTransaction({
+    required String card,
+    required String amount,
+    required int type,
+  }) {
+    final _transaction = Transaction(
+      cardNumber: card,
+      amount: double.parse(amount),
+      type: type == 1 ? 'deposito' : 'envió',
+    );
+    (_data == null) ? _data = [_transaction] : _data!.add(_transaction);
+  }
 }

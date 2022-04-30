@@ -1,7 +1,8 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tarjetas/app/core/core_domain/entities/card.dart';
 import 'package:tarjetas/app/core/core_domain/entities/user.dart';
 import 'package:tarjetas/app/core/core_domain/use_cases/auth_user_use_case.dart';
 
@@ -11,7 +12,7 @@ class UserProvider with ChangeNotifier {
   }
   User? _user;
 
-  User get user => _user!;
+  User? get user => _user;
 
   void notify() => notifyListeners();
 
@@ -30,4 +31,7 @@ class UserProvider with ChangeNotifier {
       Navigator.of(context).pushNamed('/home');
     });
   }
+
+  CardEntity getCard(String cardNumber) =>
+      _user!.cards.firstWhere((element) => element.cardNumber == cardNumber);
 }

@@ -1,6 +1,6 @@
 import 'package:tarjetas/app/core/core_domain/entities/card.dart';
 
-class CardModel extends CardEntitie {
+class CardModel extends CardEntity {
   CardModel({
     required int accountNumber,
     required double total,

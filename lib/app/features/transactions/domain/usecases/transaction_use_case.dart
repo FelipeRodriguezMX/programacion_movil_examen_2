@@ -33,10 +33,8 @@ class TransactionUseCase {
         case TransactionType.withdraw:
         default:
           return Right(right
-              .where(
-                (element) =>
-                    element.type == 'envio' && element.cardNumber == cardNumber,
-              )
+              .where((element) =>
+                  element.type == 'envió' && element.cardNumber == cardNumber)
               .toList());
       }
     });

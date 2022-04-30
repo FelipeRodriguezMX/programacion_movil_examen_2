@@ -2,12 +2,10 @@ import 'package:tarjetas/app/features/transactions/domain/entities/transaction.d
 
 class TransactionModel extends Transaction {
   TransactionModel({
-    required int id,
     required String cardNumber,
-    required int amount,
+    required double amount,
     required String type,
   }) : super(
-          id: id,
           cardNumber: cardNumber,
           amount: amount,
           type: type,
@@ -15,9 +13,8 @@ class TransactionModel extends Transaction {
 
   factory TransactionModel.fromJson(Map<String, dynamic> json) =>
       TransactionModel(
-        id: json["id"],
         cardNumber: json["cardNumber"],
-        amount: json["amount"],
+        amount: json["amount"].toDouble(),
         type: json["type"],
       );
 }

@@ -12,5 +12,5 @@ class User {
   final String firstLastName;
   final String secondLastName;
   final String phone;
-  final List<CardEntitie> cards;
+  final List<CardEntity> cards;
 }
