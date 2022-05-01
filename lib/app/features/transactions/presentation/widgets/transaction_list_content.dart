@@ -6,16 +6,14 @@ class TransactionListContent extends StatelessWidget {
   final List<Transaction> transactions;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: transactions.length,
-          itemBuilder: (BuildContext content, int index) => TransactionListTile(
-            transaction: transactions[index],
-          ),
+    return Expanded(
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: transactions.length,
+        itemBuilder: (BuildContext content, int index) => TransactionListTile(
+          transaction: transactions[index],
         ),
-      ],
+      ),
     );
   }
 }
@@ -33,12 +31,18 @@ class TransactionListTile extends StatelessWidget {
           '\$ ${transaction.amount}',
           style: const TextStyle(fontSize: 20),
         ),
-        subtitle: Text(transaction.type),
+        subtitle: Text(' ${transaction.hora} - ${transaction.fecha}'),
         iconColor: transaction.type == 'deposito' ? Colors.green : Colors.red,
-        trailing: Icon(
-          transaction.type == 'deposito'
-              ? Icons.arrow_downward
-              : Icons.arrow_upward,
+        trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              transaction.type == 'deposito'
+                  ? Icons.arrow_downward
+                  : Icons.arrow_upward,
+            ),
+            Text(transaction.type),
+          ],
         ),
       ),
     );

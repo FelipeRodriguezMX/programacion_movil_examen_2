@@ -5,7 +5,7 @@ class HomePageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context, listen: false);
+    final user = Provider.of<UserProvider>(context, listen: true).user!;
     return Column(
       children: [
         Container(
@@ -24,7 +24,7 @@ class HomePageContent extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                '${user.user!.name} ${user.user!.firstLastName}',
+                '${user.name} ${user.firstLastName}',
                 textAlign: TextAlign.left,
                 style: const TextStyle(
                     fontSize: 25,
@@ -34,7 +34,7 @@ class HomePageContent extends StatelessWidget {
             ],
           ),
         ),
-        CardListContent(cards: user.user!.cards),
+        const CardListContent(),
       ],
     );
   }

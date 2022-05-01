@@ -11,6 +11,8 @@ class InputWithValidation extends StatefulWidget {
     this.onChanged,
     this.validator,
     this.suffixText = '',
+    this.readOnly = false,
+    this.controller,
   }) : super(key: key);
   final IconData? icon;
   final int? maxLines;
@@ -20,6 +22,8 @@ class InputWithValidation extends StatefulWidget {
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final String? suffixText;
+  final bool? readOnly;
+  final TextEditingController? controller;
 
   @override
   InputWithValidationState createState() => InputWithValidationState();
@@ -40,7 +44,9 @@ class InputWithValidationState extends State<InputWithValidation> {
           ),
         ),
         TextFormField(
+          controller: widget.controller,
           onChanged: widget.onChanged,
+          readOnly: widget.readOnly!,
           decoration: InputDecoration(
             hintText: widget.hintText,
             prefixIcon: (widget.icon != null)

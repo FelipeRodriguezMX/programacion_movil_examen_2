@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tarjetas/app/core/core_presentation/global_states/user_provider.dart';
 import 'package:tarjetas/app/core/core_presentation/global_widgets/global_widgets.dart';
 import 'package:tarjetas/app/features/transactions/presentation/provider/transaction_provider.dart';
 import 'package:tarjetas/app/features/transactions/presentation/widgets/widgets.dart';
@@ -16,8 +17,10 @@ class _TransactionPageState extends State<TransactionPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<TransactionProvider>(context, listen: false)
-        .initState(widget.cardNumber);
+    Provider.of<TransactionProvider>(context, listen: false).initState(
+      cardNumber: widget.cardNumber,
+      userProvider: context.read<UserProvider>(),
+    );
   }
 
   @override
@@ -49,7 +52,7 @@ class _TransactionPageState extends State<TransactionPage> {
 
   Widget body() {
     final transaction = Provider.of<TransactionProvider>(context, listen: true);
-    if (transaction.data == null) {
+    if (transaction.isEmpty()) {
       return const Center(child: CircularProgressIndicator());
     }
     if (transaction.data!.isEmpty) {

@@ -5,18 +5,17 @@
     "firstLastName": "Rodriguez",
     "secondLastName": "Ontiveros",
     "phone": "3121775682",
+    "accountNumber": 20166957,
     "cards": [
       {
-        "accountNumber": 20166957,
         "total": 2000,
         "cvi": 123,
-        "cardNumber": "1111-2222-3333-4444"
+        "cardNumber": "5846123456824648"
       },
       {
-        "accountNumber": 20166957,
         "total": 2000,
         "cvi": 124,
-        "cardNumber": "1111-2222-3333-5555"
+        "cardNumber": "5846123764201684"
       }
     ]
   }

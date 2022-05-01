@@ -39,7 +39,6 @@ class _TransactionModalState extends State<TransactionModal> {
               fontSize: 30,
               fontWeight: FontWeight.w600,
             ),
-            textAlign: TextAlign.center,
           ),
           Form(
             key: _formKey,
@@ -47,26 +46,6 @@ class _TransactionModalState extends State<TransactionModal> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  InputWithValidation(
-                    hintText: 'Cantidad',
-                    label: 'Cantidad',
-                    onChanged: (String value) =>
-                        _amountController!.text = value,
-                    keyboardType: TextInputType.number,
-                    validator: (value) {
-                      final amount =
-                          Provider.of<UserProvider>(context, listen: false)
-                              .getCard(widget.cardNumber)
-                              .total;
-                      if (value == null || value.isEmpty) {
-                        return 'Campo vació';
-                      }
-                      if (groupValue == 2 && double.parse(value) > amount) {
-                        return 'Cantidad no permitida';
-                      }
-                      return null;
-                    },
-                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                       vertical: 15,
@@ -93,6 +72,38 @@ class _TransactionModalState extends State<TransactionModal> {
                       setState(() => groupValue = value!);
                     },
                   ),
+                  InputWithValidation(
+                    hintText: 'Cantidad',
+                    label: 'Cantidad',
+                    onChanged: (String value) =>
+                        _amountController!.text = value,
+                    keyboardType: TextInputType.number,
+                    validator: (value) {
+                      final amount = context
+                          .read<UserProvider>()
+                          .getCard(widget.cardNumber)
+                          .total;
+                      if (value == null || value.isEmpty) {
+                        return 'Campo vació';
+                      }
+                      final parsedValue = double.parse(value);
+                      if (groupValue == 2 && parsedValue > amount ||
+                          parsedValue.isNegative) {
+                        return 'Cantidad no permitida';
+                      }
+                      return null;
+                    },
+                  ),
+                  InputWithValidation(
+                    hintText: formateTime(actualTime()),
+                    label: 'Hora',
+                    readOnly: true,
+                  ),
+                  InputWithValidation(
+                    hintText: formatDate(actualDate()),
+                    label: 'Fecha',
+                    readOnly: true,
+                  ),
                   const Spacer(),
                   CustomElevatedButton(
                     title: 'Realizar transacción',
@@ -112,11 +123,11 @@ class _TransactionModalState extends State<TransactionModal> {
     if (!_formKey.currentState!.validate()) return;
     _formKey.currentState!.save();
 
-    // Provider.of<TransactionProvider>(context, listen: false).addTransaction(
-    //   amount: _amountController!.text,
-    //   card: widget.cardNumber,
-    //   type: groupValue,
-    // );
+    Provider.of<TransactionProvider>(context, listen: false).addTransaction(
+      amount: _amountController!.text,
+      card: widget.cardNumber,
+      type: groupValue,
+    );
     Navigator.of(context).pop();
   }
 }

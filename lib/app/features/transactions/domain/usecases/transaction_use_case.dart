@@ -12,30 +12,20 @@ class TransactionUseCase {
     required String cardNumber,
     TransactionType transaction = TransactionType.all,
   }) async {
-    final either = await repository.getTransactions();
-
+    final either = await repository.getTransactions(cardNumber);
     return either.fold((left) {
       return Left(left);
     }, (right) {
       switch (transaction) {
         case TransactionType.all:
-          return Right(right
-              .where((element) => element.cardNumber == cardNumber)
-              .toList());
+          return Right(right);
         case TransactionType.deposits:
-          return Right(right
-              .where(
-                (element) =>
-                    element.type == 'deposito' &&
-                    element.cardNumber == cardNumber,
-              )
-              .toList());
+          return Right(
+              right.where((element) => element.type == 'deposito').toList());
         case TransactionType.withdraw:
         default:
-          return Right(right
-              .where((element) =>
-                  element.type == 'envió' && element.cardNumber == cardNumber)
-              .toList());
+          return Right(
+              right.where((element) => element.type == 'envió').toList());
       }
     });
   }

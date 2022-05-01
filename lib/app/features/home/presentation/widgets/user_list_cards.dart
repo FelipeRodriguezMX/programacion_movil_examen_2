@@ -1,13 +1,14 @@
 part of './widgets.dart';
 
 class CardListContent extends StatelessWidget {
-  const CardListContent({Key? key, required this.cards}) : super(key: key);
-  final List<CardEntity> cards;
+  const CardListContent({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final cards = context.read<UserProvider>().user!.cards;
     return ListView.builder(
         itemCount: cards.length,
         shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () => Navigator.of(context)
@@ -66,15 +67,18 @@ class CardListContent extends StatelessWidget {
                                     fontSize: 20,
                                     fontWeight: FontWeight.w700,
                                   ),
-                                  // textAlign: TextAlign.left,
+                                  textAlign: TextAlign.left,
                                 ),
                               ),
                               const Spacer(),
-                              Text(
-                                '\$ ${cards[index].total} MXN',
-                                style: const TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
+                              Flexible(
+                                child: Text(
+                                  '\$${cards[index].total} MXN',
+                                  style: const TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  textAlign: TextAlign.right,
                                 ),
                               ),
                             ],
@@ -86,11 +90,14 @@ class CardListContent extends StatelessWidget {
                               fontSize: 20,
                               fontWeight: FontWeight.w700,
                             ),
-                            // textAlign: TextAlign.left,
                           ),
                           const Spacer(),
                           Text(
-                            '${cards[index].accountNumber}',
+                            context
+                                .read<UserProvider>()
+                                .user!
+                                .accountNumber
+                                .toString(),
                             style: const TextStyle(
                               fontSize: 17,
                               fontWeight: FontWeight.w500,

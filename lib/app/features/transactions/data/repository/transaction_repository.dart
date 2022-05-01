@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:either_dart/either.dart';
@@ -14,9 +13,10 @@ class TransactionRepositoryImplementation extends ITransactionsRepository {
   final ITransactionsDataSource dataSource;
 
   @override
-  Future<Either<Failure, List<Transaction>>> getTransactions() async {
+  Future<Either<Failure, List<Transaction>>> getTransactions(
+      String cardNumber) async {
     try {
-      final response = await dataSource.getTransactions();
+      final response = await dataSource.getTransactions(cardNumber);
       return Right(response);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.statusCode));
@@ -25,7 +25,6 @@ class TransactionRepositoryImplementation extends ITransactionsRepository {
     } on TimeoutException {
       return const Left(TimeOutFailure());
     } catch (e) {
-      inspect(e);
       return const Left(AnotherFailure());
     }
   }

@@ -7,10 +7,12 @@ class User {
     required this.secondLastName,
     required this.phone,
     required this.cards,
+    required this.accountNumber,
   });
-  final String name;
-  final String firstLastName;
-  final String secondLastName;
-  final String phone;
+  String name;
+  String firstLastName;
+  String secondLastName;
+  String phone;
+  final int accountNumber;
   final List<CardEntity> cards;
 }

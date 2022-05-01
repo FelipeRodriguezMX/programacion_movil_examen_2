@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tarjetas/app/features/home/home.dart';
-import 'package:tarjetas/app/features/initial/intial.dart';
+import 'package:tarjetas/app/features/initial/initial.dart';
 import 'package:tarjetas/app/features/transactions/transactions.dart';
 
 class RouteGenerator {
@@ -19,6 +19,9 @@ class RouteGenerator {
             builder: (context) => TransactionPage(
                   cardNumber: args! as String,
                 ));
+      case '/user':
+        return MaterialPageRoute<dynamic>(
+            builder: (context) => const UserSection());
 
       default:
         return _errorRoute();

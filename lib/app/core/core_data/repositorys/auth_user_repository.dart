@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:either_dart/either.dart';
@@ -24,6 +25,7 @@ class AuthUserRepositoryImplementation extends IAuthUserRepository {
     } on TimeoutException {
       return const Left(TimeOutFailure());
     } catch (e) {
+      inspect(e);
       return const Left(AnotherFailure());
     }
   }

@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:tarjetas/app/core/core_presentation/global_states/user_provider.dart';
+import 'package:tarjetas/app/core/utils/static_transactions.dart';
 import 'package:tarjetas/app/core/utils/utils.dart';
 import 'package:tarjetas/app/features/transactions/domain/entities/transaction.dart';
 import 'package:tarjetas/app/features/transactions/domain/usecases/transaction_use_case.dart';
@@ -9,19 +11,27 @@ import 'package:tarjetas/app/features/transactions/domain/usecases/transaction_u
 class TransactionProvider with ChangeNotifier {
   TransactionProvider() {
     _data = null;
+    _userProvider = null;
   }
   List<Transaction>? _data;
+
+  UserProvider? _userProvider;
 
   List<Transaction>? get data => _data;
 
   void notify() => notifyListeners();
 
+  bool isEmpty() => _data == null;
+
   void initData(List<Transaction> data) {
     _data = data;
   }
 
-  void initState(String cardNumber) {
-    _data = null;
+  void initState({
+    required String cardNumber,
+    required UserProvider userProvider,
+  }) {
+    _userProvider = userProvider;
     getTransactions(cardNumber: cardNumber);
   }
 
@@ -44,11 +54,18 @@ class TransactionProvider with ChangeNotifier {
     required String amount,
     required int type,
   }) {
+    final _amount = double.parse(amount);
     final _transaction = Transaction(
       cardNumber: card,
-      amount: double.parse(amount),
+      amount: _amount,
       type: type == 1 ? 'deposito' : 'envió',
+      hora: formateTime(actualTime()),
+      fecha: formatDate(actualDate()),
     );
+    _userProvider!
+        .updateCardTotal(amount: _amount, cardNumber: card, type: type);
     (_data == null) ? _data = [_transaction] : _data!.add(_transaction);
+    staticTransactions.add(_transaction);
+    notifyListeners();
   }
 }

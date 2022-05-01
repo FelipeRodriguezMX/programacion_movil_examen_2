@@ -7,6 +7,7 @@ class UserModel extends User {
     required String firstLastName,
     required String secondLastName,
     required String phone,
+    required int accountNumber,
     required List<CardModel> cards,
   }) : super(
           name: name,
@@ -14,6 +15,7 @@ class UserModel extends User {
           secondLastName: secondLastName,
           phone: phone,
           cards: cards,
+          accountNumber: accountNumber,
         );
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -21,6 +23,7 @@ class UserModel extends User {
         firstLastName: json['firstLastName'],
         secondLastName: json['secondLastName'],
         phone: json['phone'],
+        accountNumber: json['accountNumber'],
         cards: List<CardModel>.from(
             json["cards"].map((x) => CardModel.fromJson(x))),
       );
